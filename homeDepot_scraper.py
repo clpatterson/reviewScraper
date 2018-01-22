@@ -2,12 +2,13 @@ import requests
 import json
 import re
 
+#create csv and write in column headers
 filename = "home_depot_reviews.csv"
 f = open(filename, "w")
 headers = 'userId, date, gender, age, userLocation, home_improvement_profile, overallRating, recommendation, featuresRating, qualityRating, valueRating, reviewTitle, reviewText\n'
 f.write(headers)
 
-#User inputs key info and extract product id from url
+#User inputs url and pages desired, then product id is extracted from url
 url = "https://www.homedepot.com/p/GE-25-4-cu-ft-Side-by-Side-Refrigerator-in-Stainless-Steel-GSS25GSHSS/205599120"
 pagesDesired = 60
 pageStop= pagesDesired + 1
@@ -24,6 +25,7 @@ for pageNumber in range(1,pageStop,1):
 	#parse raw text into review_containers in a list
 	review_container = re.findall(r'itemprop=\\"review\\(.*?)BVRRSeparator BVRRSeparatorContentBodyBottom',responseText)
 
+	#loop through review containers and scrape desired data
 	for review in review_container:
 		
 		userId_search = re.search(r'BVRRNickname\\">(.*?)<',review)
@@ -51,7 +53,7 @@ for pageNumber in range(1,pageStop,1):
 		else:
 			userLocation = userLocation_search.groups(0)[0]
 
-		#this is either a diy or professional
+		#this outputs either a 'diy' or 'professional'
 		home_improvement_profile_search = re.search(r'BVRRContextDataValueHomeGoodsProfile\\">(.*?)<',review) 
 		if home_improvement_profile_search == None:
 			home_improvement_profile = ''
@@ -95,7 +97,7 @@ for pageNumber in range(1,pageStop,1):
 		reviewTitle_search = re.search(r'BVRRValue BVRRReviewTitle\\">(.*?)<',review)  
 		reviewTitle = reviewTitle_search.groups(0)[0]
 		
-		#returns a list with all paragraphs/parts included...(will need to merge elements in list into one string using list comprehension?)
+		#because review text can be broken into different parts, this finds all parts and joins them
 		reviewText_search = re.findall(r'<span class=\\"BVRRReviewText\\">(.*?)<',review)
 		if reviewText_search == None:
 			reviewText = ''
@@ -104,16 +106,14 @@ for pageNumber in range(1,pageStop,1):
 		elif len(reviewText_search) == 1:
 			reviewText = reviewText_search[0]
 
+		#for your viewing pleasure
 		print(userId)
 		print(str(date))
 		print(gender)
 
+		#write review data to csv
 		f.write(userId.replace(",","|") + "," + str(date) + "," + gender + "," + age.replace("to","-") + "," + userLocation.replace(",","|") + "," + home_improvement_profile + "," + overallRating.replace(",","|") + "," + recommendation.replace(",","|") + "," + featuresRating.replace(",","|") + "," + qualityRating.replace(",","|") + "," + valueRating.replace(",","|") + "," + reviewTitle.replace(",","|") + "," + reviewText.replace(",","|") + "\n")
 
 f.close()
-
-
-#https://homedepot.ugc.bazaarvoice.com/1999aa/205599120/reviews.djs?format=embeddedhtml&page=4&scrollToTop=true
-
 
 
