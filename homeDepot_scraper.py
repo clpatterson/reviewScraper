@@ -9,11 +9,11 @@ headers = 'userId, date, gender, age, userLocation, home_improvement_profile, ov
 f.write(headers)
 
 #User inputs url and pages desired, then product id is extracted from url
-url = "https://www.homedepot.com/p/GE-25-4-cu-ft-Side-by-Side-Refrigerator-in-Stainless-Steel-GSS25GSHSS/205599120"
+url = "https://www.homedepot.com/p/KitchenAid-Top-Control-Built-In-Tall-Tub-Dishwasher-in-PrintShield-Stainless-with-Fan-Enabled-PRODRY-39-dBA-KDPE334GPS/302853788"
 pagesDesired = 60
 pageStop= pagesDesired + 1
 product_id2 = re.search(r'/(\d{9})',url)
-product_id = product_id2.groups(0)[0]
+product_id = u''.join(product_id2.groups(0)[0]).encode('ascii', 'ignore')
 
 #get text/javascript page content from server for each review page
 for pageNumber in range(1,pageStop,1):
@@ -29,82 +29,82 @@ for pageNumber in range(1,pageStop,1):
 	for review in review_container:
 		
 		userId_search = re.search(r'BVRRNickname\\">(.*?)<',review)
-		userId = userId_search.groups(0)[0]
+		userId = u''.join(userId_search.groups(0)[0]).encode('ascii', 'ignore')
 		
 		date_search = re.search(r'datePublished\\" content=\\"(.*?)\\',review) 
-		date = date_search.groups(0)[0]
+		date = u''.join(date_search.groups(0)[0]).encode('ascii', 'ignore')
 		
 
 		gender_search = re.search(r'BVRRContextDataValueGender\\">(.*?)<',review)
 		if gender_search == None:
 			gender = ''
 		else:
-			gender = gender_search.groups(0)[0]
+			gender = u''.join(gender_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		age_search = re.search(r'BVRRContextDataValueAge\\">(.*?)<',review)
 		if age_search == None:
 			age = ''
 		else:
-			age = age_search.groups(0)[0]
+			age = u''.join(age_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		userLocation_search = re.search(r'BVRRValue BVRRUserLocation\\">(.*?)<',review)
 		if userLocation_search == None:
 			userLocation = ''
 		else:
-			userLocation = userLocation_search.groups(0)[0]
+			userLocation = u''.join(userLocation_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		#this outputs either a 'diy' or 'professional'
 		home_improvement_profile_search = re.search(r'BVRRContextDataValueHomeGoodsProfile\\">(.*?)<',review) 
 		if home_improvement_profile_search == None:
 			home_improvement_profile = ''
 		else:
-			home_improvement_profile = home_improvement_profile_search.groups(0)[0]
+			home_improvement_profile = u''.join(home_improvement_profile_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		overallRating_search = re.search(r'BVRRNumber BVRRRatingNumber\\">(.*?)<',review)
-		overallRating_string = overallRating_search.groups(0)[0]
+		overallRating_string = u''.join(overallRating_search.groups(0)[0]).encode('ascii', 'ignore')
 		overallRating = overallRating_string[0]
 
 		recommendation_search = re.search(r'BVRRValue BVRRRecommended\\">(.*?)<',review)
 		if recommendation_search == None:
 			recommendation = ''
 		else:
-			recommendation = recommendation_search.groups(0)[0]
+			recommendation = u''.join(recommendation_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		featuresRating_search =re.search(r'Features\xa0<\\/div><div class=\\"BVRRRatingNormalOutOf\\"> <span class=\\"BVRRNumber BVRRRatingNumber\\">(.*?)<',review)
 		if featuresRating_search == None:
 			featuresRating = ''
 		else:
-			featuresRating = featuresRating_search.groups(0)[0]
+			featuresRating = u''.join(featuresRating_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		energyRating_search = re.search(r'Energy efficiency\xa0<\\/div><div class=\\"BVRRRatingNormalOutOf\\"> <span class=\\"BVRRNumber BVRRRatingNumber\\">(.*?)<',review)
 		if energyRating_search == None:
 			energyRating = ''
 		else:
-			energyRating = energyRating_search.groups(0)[0]
+			energyRating = u''.join(energyRating_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		qualityRating_search = re.search(r'Quality\xa0<\\/div><div class=\\"BVRRRatingNormalOutOf\\"> <span class=\\"BVRRNumber BVRRRatingNumber\\">(.*?)<',review)
 		if qualityRating_search == None:
 			qualityRating = ''
 		else:
-			qualityRating = qualityRating_search.groups(0)[0]
+			qualityRating = u''.join(qualityRating_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		valueRating_search = re.search(r'Value\xa0<\\/div><div class=\\"BVRRRatingNormalOutOf\\"> <span class=\\"BVRRNumber BVRRRatingNumber\\">(.*?)<',review)
 		if valueRating_search == None:
 			valueRating = ''
 		else:
-			valueRating = valueRating_search.groups(0)[0]
+			valueRating = u''.join(valueRating_search.groups(0)[0]).encode('ascii', 'ignore')
 
 		reviewTitle_search = re.search(r'BVRRValue BVRRReviewTitle\\">(.*?)<',review)  
-		reviewTitle = reviewTitle_search.groups(0)[0]
+		reviewTitle = u''.join(reviewTitle_search.groups(0)[0]).encode('ascii', 'ignore')
 		
 		#because review text can be broken into different parts, this finds all parts and joins them
 		reviewText_search = re.findall(r'<span class=\\"BVRRReviewText\\">(.*?)<',review)
 		if reviewText_search == None:
 			reviewText = ''
 		elif len(reviewText_search) > 1:
-			reviewText = ''.join(reviewText_search)
+			reviewText = ''.join(reviewText_search).encode('ascii', 'ignore')
 		elif len(reviewText_search) == 1:
-			reviewText = reviewText_search[0]
+			reviewText = reviewText_search[0].encode('ascii', 'ignore')
 
 		#for your viewing pleasure
 		print(userId)
