@@ -69,25 +69,3 @@ for pageNumber in range(1,pagesDesired,1):
 		f.write(agentName + "," + str(reviewDate) + "," + str(overall_starRating) + "," + str(localKnowledge) + "," + str(processExpertise) + "," + str(responsiveness) + "," + str(negotiationSkills) + "," + workDone.replace(",","|") + "," + reviewBody.replace(",","|").replace('\r'," ").replace('\n'," ") + "\n")
 
 f.close()
-	
-
-	#first_review = parsed_json['reviews'][0]
-	#review_body = parsed_json['reviews'][0]['reviewBodyMain']
-#
-	#print(review_body)
-
-#page_html = page.text 
-#page_soup = soup(page_html, "html.parser")
-#containers = page_soup.findall("div",{"class":"reviews-list"})
-#
-#for container in containers:
-#
-#	stars =
-#	title
-#	date
-#	user_id
-#	transaction_type
-
-
-
-
