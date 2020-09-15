@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import requests
 import json
 import re
@@ -115,5 +116,3 @@ for pageNumber in range(1,pageStop,1):
 		f.write(userId.replace(",","|") + "," + str(date) + "," + gender + "," + age.replace("to","-") + "," + userLocation.replace(",","|") + "," + home_improvement_profile + "," + overallRating.replace(",","|") + "," + recommendation.replace(",","|") + "," + featuresRating.replace(",","|") + "," + qualityRating.replace(",","|") + "," + valueRating.replace(",","|") + "," + reviewTitle.replace(",","|") + "," + reviewText.replace(",","|") + "\n")
 
 f.close()
-
-
