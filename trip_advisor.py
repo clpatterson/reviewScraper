@@ -65,10 +65,3 @@ for pagenumber in range(5,99,5):
 		f.write(str(username.replace(",", "|")) + "," +str(hometown.replace(",", "|")) + "," +title.replace(",", "|") + "," +str(stars) + "," +str(review.replace(",", "|")) + "," +str(date) + "," +str(trip_type) + "\n")
 
 f.close()
-
-'https://www.tripadvisor.com/Hotel_Review-g45963-d91674-Reviews-or5-Four_Seasons_Hotel_Las_Vegas-Las_Vegas_Nevada.html'
-'https://www.tripadvisor.com/Hotel_Review-g35805-d90969-Reviews-or5-Holiday_Inn_Chicago_Downtown-Chicago_Illinois.html'
-
-
-
-
