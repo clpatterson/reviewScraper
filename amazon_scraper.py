@@ -57,4 +57,3 @@ for pageNumber in range(1,17,1):
 		f.write(str(stars) + "," +review_title.replace(",", "|") + "," +author.replace(",", "|") + "," +str(date) + "," +review_text.replace(",", "|") + "," +comments.replace(",", "|") +  "\n")
 
 f.close()
-
